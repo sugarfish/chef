@@ -1,0 +1,50 @@
+user <%= node[:nginx][:user] %>;
+worker_processes  <%= node[:nginx][:worker_processes] %>;
+<% if node[:nginx][:daemon_disable] -%>
+daemon off;
+<% end -%>
+
+error_log  <%= node[:nginx][:log_dir] %>/error.log;
+pid        /var/run/nginx.pid;
+
+events {
+  worker_connections  <%= node[:nginx][:worker_connections] %>;
+  use epoll;
+  multi_accept on;
+  accept_mutex_delay 50ms; 
+}
+
+http {
+  include       <%= node[:nginx][:dir] %>/mime.types;
+  default_type  application/octet-stream;
+  server_tokens off; 
+  <% unless node[:nginx][:disable_access_log] -%>
+  access_log	<%= node[:nginx][:log_dir] %>/access.log;
+  <% end %>
+
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+
+  <% if node[:nginx][:keepalive] == "on" %>
+  keepalive_timeout  <%= node[:nginx][:keepalive_timeout] %>;
+  keepalive_requests 128; 
+	
+  <% end %>
+
+  gzip  <%= node[:nginx][:gzip] %>;
+  <% if node[:nginx][:gzip] == "on" %>
+  #gzip_http_version <%= node[:nginx][:gzip_http_version] %>;
+  gzip_comp_level <%= node[:nginx][:gzip_comp_level] %>;
+  gzip_proxied <%= node[:nginx][:gzip_proxied] %>;
+  gzip_types <%= node[:nginx][:gzip_types].join(' ') %>;
+  <% end %>
+  client_max_body_size <%= node[:nginx][:client_max_body_size] %>;
+  #server_names_hash_bucket_size <%= node[:nginx][:server_names_hash_bucket_size] %>;
+	#upstream phpfpm_backend {
+	#	server unix:/dev/shm/php-fpm1.socket;
+	#}
+
+  include <%= node[:nginx][:dir] %>/conf.d/*.conf;
+  include <%= node[:nginx][:dir] %>/sites-enabled/*;
+}
