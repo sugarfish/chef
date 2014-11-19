@@ -56,6 +56,20 @@ end
 
 directory node['php-fpm']['log_dir']
 
+directory "/var/www" do
+  owner 'www-data'
+  group 'www-data'
+  mode '0744'
+  action :create
+end
+
+directory "/var/www/temp" do
+  owner 'www-data'
+  group 'www-data'
+  mode '0644'
+  action :create
+end
+
 service "php-fpm" do
   provider service_provider if service_provider
   service_name php_fpm_service_name

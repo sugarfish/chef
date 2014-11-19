@@ -72,15 +72,3 @@ when 'debian'
     end
   end
 end
-
-#when 'amazon', 'fedora', 'centos', 'redhat'
-#  unless platform?('centos', 'redhat') && node['platform_version'].to_f >= 6.4
-#    yum_repository 'remi' do
-#      description 'Remi'
-#      url node['php-fpm']['yum_url']
-#      mirrorlist node['php-fpm']['yum_mirrorlist']
-#      gpgkey 'http://rpms.famillecollet.com/RPM-GPG-KEY-remi'
-#      action :add
-#    end
-#  end
-#end

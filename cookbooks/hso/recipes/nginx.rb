@@ -27,16 +27,17 @@
 include_recipe "nginx"
 
 #Setup Nginx
-template "#{node['nginx']['dir']}/sites-available/friendgloo.com" do
-	source "com.friendgloo.nginx.conf.erb"
-	owner "#{ node['nginx']['user'] }"
-	group "#{ node['nginx']['group'] }"
-	notifies :restart, resources(:service => "nginx")
+template "friendgloo.nginx.conf" do
+  path "#{node['nginx']['dir']}/sites-available/friendgloo.conf"
+  source "friendgloo.nginx.conf.erb"
+  owner "#{ node['nginx']['user'] }"
+  group "#{ node['nginx']['group'] }"
+  notifies :restart, resources(:service => "nginx")
 end
 
 file "#{node['nginx']['dir']}/conf.d/default.conf" do
-	action :delete
-	notifies :restart, resources(:service => "nginx")
+  action :delete
+  notifies :restart, resources(:service => "nginx")
 end
 
 file "#{node['nginx']['dir']}/sites-available/default" do
@@ -45,11 +46,11 @@ file "#{node['nginx']['dir']}/sites-available/default" do
 end
 
 file "#{node['nginx']['dir']}/sites-enabled/default" do
-	action :delete
-	notifies :restart, resources(:service => "nginx")
+  action :delete
+  notifies :restart, resources(:service => "nginx")
 end
 
-link "#{node['nginx']['dir']}/sites-enabled/friendgloo.com" do
-	to "#{node['nginx']['dir']}/sites-available/friendgloo.com"
+link "#{node['nginx']['dir']}/sites-enabled/friendgloo" do
+  to "#{node['nginx']['dir']}/sites-available/friendgloo.conf"
 end
 
