@@ -1,9 +1,9 @@
-blog Cookbook
-=============
+hso Cookbook
+============
 TODO: Enter the cookbook description here.
 
 e.g.
-This cookbook is intended to build a production blog node
+This cookbook is intended to build the hso node
 
 Requirements
 ------------
@@ -12,14 +12,14 @@ PHP-FPM
 
 e.g.
 #### packages
-- `toaster` - blog needs toaster to brown your bagel.
+- `toaster` - hso needs toaster to brown your bagel.
 
 Attributes
 ----------
 TODO: List your cookbook attributes here.
 
 e.g.
-#### blog::default
+#### hso::default
 <table>
   <tr>
     <th>Key</th>
@@ -28,7 +28,7 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['blog']['bacon']</tt></td>
+    <td><tt>['hso']['bacon']</tt></td>
     <td>Boolean</td>
     <td>whether to include bacon</td>
     <td><tt>true</tt></td>
@@ -37,17 +37,17 @@ e.g.
 
 Usage
 -----
-#### blog::default
+#### hso::default
 TODO: Write usage instructions for each cookbook.
 
 e.g.
-Just include `blog` in your node's `run_list`:
+Just include `hso` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[blog]"
+    "recipe[hso]"
   ]
 }
 ```
