@@ -50,7 +50,7 @@ template "default.nginx.conf" do
   notifies :restart, resources(:service => "nginx")
 end
 
-link "#{node['nginx']['dir']}/sites-enabled/default" do
+link "#{node['nginx']['dir']}/sites-enabled/default.conf" do
   to "#{node['nginx']['dir']}/sites-available/default.conf"
 end
 
