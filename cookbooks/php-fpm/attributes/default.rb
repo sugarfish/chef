@@ -1,5 +1,6 @@
 user = "www-data"
 group = "www-data"
+listen = "127.0.0.1:9000"
 conf_dir = "/etc/php5/fpm/conf.d"
 pool_conf_dir = "/etc/php5/fpm/pool.d"
 conf_file = "/etc/php5/fpm/php-fpm.conf"
@@ -8,6 +9,7 @@ pid ="/var/run/php5-fpm.pid"
 
 default['php-fpm']['user'] = user
 default['php-fpm']['group'] = group
+default['php-fpm']['listen'] = listen
 default['php-fpm']['conf_dir'] = conf_dir
 default['php-fpm']['pool_conf_dir'] = pool_conf_dir
 default['php-fpm']['conf_file'] = conf_file
