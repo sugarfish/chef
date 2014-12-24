@@ -27,14 +27,6 @@
 include_recipe "nginx"
 
 #Setup Nginx
-template "friendgloo.nginx.conf" do
-  path "#{node['nginx']['dir']}/sites-available/friendgloo.conf"
-  source "friendgloo.nginx.conf.erb"
-  owner "#{ node['nginx']['user'] }"
-  group "#{ node['nginx']['group'] }"
-  notifies :restart, resources(:service => "nginx")
-end
-
 file "#{node['nginx']['dir']}/conf.d/default.conf" do
   action :delete
   notifies :restart, resources(:service => "nginx")
@@ -50,7 +42,15 @@ file "#{node['nginx']['dir']}/sites-enabled/default" do
   notifies :restart, resources(:service => "nginx")
 end
 
-link "#{node['nginx']['dir']}/sites-enabled/friendgloo" do
-  to "#{node['nginx']['dir']}/sites-available/friendgloo.conf"
+template "default.nginx.conf" do
+  path "#{node['nginx']['dir']}/sites-available/default.conf"
+  source "default.nginx.conf.erb"
+  owner "#{ node['nginx']['user'] }"
+  group "#{ node['nginx']['group'] }"
+  notifies :restart, resources(:service => "nginx")
+end
+
+link "#{node['nginx']['dir']}/sites-enabled/default" do
+  to "#{node['nginx']['dir']}/sites-available/default.conf"
 end
 
