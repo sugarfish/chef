@@ -57,6 +57,8 @@ server {
 
 server {
 	listen *:<%= node[:hso][:nginxport] %>;
+	server_name wiki.ianatkin.info;
+
         root <%= node[:hso][:workdir] %>/wiki.ianatkin.info;
         index index.php index.html index.htm;
 
